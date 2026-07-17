@@ -17,7 +17,10 @@
     "@angular/forms": "^22.0.0",
     "@angular/platform-browser": "^22.0.0",
     "@angular/router": "^22.0.0",
+    "@tailwindcss/vite": "4.3.3",
     "rxjs": "~7.8.0",
+    "tailwindcss": "4.3.3",
+    "tailwindcss-animate": "1.0.7",
     "tslib": "^2.3.0"
   },
   "devDependencies": {

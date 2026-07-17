@@ -12,7 +12,7 @@
       "schematics": {
         "@schematics/angular:component": {
           "skipTests": true,
-          "style": "scss"
+          "style": "css"
         },
         "@schematics/angular:class": {
           "skipTests": true
@@ -52,7 +52,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css"
             ]
           },
           "configurations": {
