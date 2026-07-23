@@ -3,8 +3,22 @@
     #{{ $index }}:{{ task.title }}
   }
 } @else {
-  <section>
-    <p>All clear</p>
-    <p>Add your first task above</p>
+  <section class="flex min-h-[55dvh] flex-col items-center justify-center text-center">
+    <app-dashed-circle [size]="80">
+      <svg
+        class="h-8 w-8 text-secondary"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M5 13l4 4L19 7" />
+      </svg>
+    </app-dashed-circle>
+    <p class="mt-6 type-modal-title text-secondary">All clear</p>
+    <p class="mt-2 type-body text-muted">Add your first task above.</p>
   </section>
 }

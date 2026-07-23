@@ -1,11 +1,25 @@
-<h1>My tasks</h1>
-<app-tasks-counter></app-tasks-counter>
-<app-tasks-list></app-tasks-list>
+<div class="min-h-dvh px-6 pt-10">
+  <header>
+    <h1 class="type-page-title text-primary">My tasks</h1>
+    <app-tasks-counter></app-tasks-counter>
+  </header>
 
-<section>
-  <p>Quick add a task...</p>
-  <button (click)="addTask()">Add</button>
-</section>
+  <section
+    class="mt-8 flex items-center gap-4 rounded-card border border-default bg-card px-4 py-3"
+  >
+    <app-dashed-circle [size]="40" aria-hidden="true"></app-dashed-circle>
+    <p class="flex-1 type-body text-secondary">Quick add a task...</p>
+    <button
+      type="button"
+      (click)="addTask()"
+      class="rounded-field bg-accent px-5 py-3 type-task-title font-semibold text-background focus-visible:focus-ring"
+    >
+      Add
+    </button>
+  </section>
+
+  <app-tasks-list></app-tasks-list>
+</div>
 
 @if (showCreate()) {
   <div class="scrim" (click)="closeCreate()"></div>

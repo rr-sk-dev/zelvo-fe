@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { TasksService } from '../tasks.service';
 
 @Component({
@@ -8,5 +8,10 @@ import { TasksService } from '../tasks.service';
   styleUrl: './tasks-counter.css',
 })
 export class TasksCounter {
-  tasksService = inject(TasksService);
+  private readonly tasksService = inject(TasksService);
+
+  protected readonly label = computed(() => {
+    const count = this.tasksService.tasks().length;
+    return `${count} ${count === 1 ? 'task' : 'tasks'}`;
+  });
 }

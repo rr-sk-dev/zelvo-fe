@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { DashedCircle } from '../../shared/dashed-circle/dashed-circle';
 import { TasksCounter } from './tasks-counter/tasks-counter';
 import { TasksCreate } from './tasks-create/tasks-create';
 import { TasksList } from './tasks-list/tasks-list';
@@ -9,7 +10,7 @@ export interface Task {
 
 @Component({
   selector: 'app-tasks',
-  imports: [TasksCounter, TasksList, TasksCreate],
+  imports: [TasksCounter, TasksList, TasksCreate, DashedCircle],
   templateUrl: './tasks.html',
   styleUrl: './tasks.css',
 })
