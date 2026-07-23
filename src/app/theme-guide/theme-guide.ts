@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, afterNextRender, signal } from '@angular/core';
 
 interface Swatch {
   name: string;
-  value: string;
-  /** Tailwind bg utility generated from a semantic color token. */
+  /** Semantic CSS custom property this swatch documents; its value is read live. */
+  token: string;
+  /** Tailwind bg utility generated from the same token. */
   swatchClass: string;
 }
 
@@ -14,56 +15,76 @@ interface TypeSample {
   toneClass: string;
 }
 
+const CORE_COLORS: readonly Swatch[] = [
+  { name: 'Background', token: '--background', swatchClass: 'bg-background' },
+  { name: 'Card', token: '--card', swatchClass: 'bg-card' },
+  { name: 'Field / Row', token: '--field', swatchClass: 'bg-field' },
+  { name: 'Border', token: '--border', swatchClass: 'bg-border' },
+  { name: 'Accent (amber)', token: '--accent', swatchClass: 'bg-accent' },
+  { name: 'Text primary', token: '--text-primary', swatchClass: 'bg-primary' },
+  { name: 'Text secondary', token: '--text-secondary', swatchClass: 'bg-secondary' },
+  { name: 'Text muted', token: '--text-muted', swatchClass: 'bg-muted' },
+];
+
+const SEMANTIC_COLORS: readonly Swatch[] = [
+  { name: 'High priority', token: '--priority-high', swatchClass: 'bg-priority-high' },
+  { name: 'Medium priority', token: '--priority-medium', swatchClass: 'bg-priority-medium' },
+  { name: 'Low priority', token: '--priority-low', swatchClass: 'bg-priority-low' },
+  { name: 'In progress', token: '--status-in-progress', swatchClass: 'bg-status-in-progress' },
+  { name: 'Done', token: '--status-done', swatchClass: 'bg-status-done' },
+];
+
+const TYPE_SAMPLES: readonly TypeSample[] = [
+  {
+    text: 'Page title — Space Grotesk 700 / 26',
+    typeClass: 'type-page-title',
+    toneClass: 'text-primary',
+  },
+  {
+    text: 'Modal title — Space Grotesk 700 / 19',
+    typeClass: 'type-modal-title',
+    toneClass: 'text-primary',
+  },
+  {
+    text: 'Task title — System 500 / 15',
+    typeClass: 'type-task-title',
+    toneClass: 'text-primary',
+  },
+  {
+    text: 'Body / description — System 400 / 13.5',
+    typeClass: 'type-body',
+    toneClass: 'text-secondary',
+  },
+  {
+    text: 'Section label — System 600 / 12 / +1',
+    typeClass: 'type-section-label',
+    toneClass: 'text-secondary',
+  },
+  { text: 'Meta / dates — System 400 / 11.5', typeClass: 'type-meta', toneClass: 'text-muted' },
+];
+
 @Component({
   selector: 'app-theme-guide',
   templateUrl: './theme-guide.html',
 })
 export class ThemeGuide {
-  readonly coreColors: Swatch[] = [
-    { name: 'Background', value: '#0D0B16', swatchClass: 'bg-background' },
-    { name: 'Card', value: '#15131F', swatchClass: 'bg-card' },
-    { name: 'Field / Row', value: '#1C1830', swatchClass: 'bg-field' },
-    { name: 'Border', value: '#251F38', swatchClass: 'bg-border' },
-    { name: 'Accent (amber)', value: 'oklch(.72 .16 75)', swatchClass: 'bg-accent' },
-    { name: 'Text primary', value: '#F0EEF8', swatchClass: 'bg-primary' },
-    { name: 'Text secondary', value: '#A49EC2', swatchClass: 'bg-secondary' },
-    { name: 'Text muted', value: '#6E6A85', swatchClass: 'bg-muted' },
-  ];
+  readonly coreColors = CORE_COLORS;
+  readonly semanticColors = SEMANTIC_COLORS;
+  readonly typeSamples = TYPE_SAMPLES;
 
-  readonly semanticColors: Swatch[] = [
-    { name: 'High priority', value: 'oklch(.72 .16 25)', swatchClass: 'bg-priority-high' },
-    { name: 'Medium priority', value: 'oklch(.72 .16 75)', swatchClass: 'bg-priority-medium' },
-    { name: 'Low priority', value: 'oklch(.72 .16 160)', swatchClass: 'bg-priority-low' },
-    { name: 'In progress', value: 'oklch(.72 .16 250)', swatchClass: 'bg-status-in-progress' },
-    { name: 'Done', value: '#3D3855', swatchClass: 'bg-status-done' },
-  ];
+  /** Live resolved value of each token, keyed by custom-property name. */
+  protected readonly resolvedValues = signal<Record<string, string>>({});
 
-  readonly typeSamples: TypeSample[] = [
-    {
-      text: 'Page title — Space Grotesk 700 / 26',
-      typeClass: 'type-page-title',
-      toneClass: 'text-primary',
-    },
-    {
-      text: 'Modal title — Space Grotesk 700 / 19',
-      typeClass: 'type-modal-title',
-      toneClass: 'text-primary',
-    },
-    {
-      text: 'Task title — System 500 / 15',
-      typeClass: 'type-task-title',
-      toneClass: 'text-primary',
-    },
-    {
-      text: 'Body / description — System 400 / 13.5',
-      typeClass: 'type-body',
-      toneClass: 'text-secondary',
-    },
-    {
-      text: 'Section label — System 600 / 12 / +1',
-      typeClass: 'type-section-label',
-      toneClass: 'text-secondary',
-    },
-    { text: 'Meta / dates — System 400 / 11.5', typeClass: 'type-meta', toneClass: 'text-muted' },
-  ];
+  constructor() {
+    // The running CSS is the single source of truth: resolve each token's
+    // value from :root once the DOM exists (browser only — never on the server).
+    afterNextRender(() => {
+      const styles = getComputedStyle(document.documentElement);
+      const resolved: Record<string, string> = {};
+      for (const { token } of [...CORE_COLORS, ...SEMANTIC_COLORS]) {
+        resolved[token] = styles.getPropertyValue(token).trim();
+      }
+      this.resolvedValues.set(resolved);
+    });
+  }
 }

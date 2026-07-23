@@ -1,16 +1,19 @@
 <div class="min-h-screen bg-background px-6 py-10 lg:px-8 lg:py-12">
   <div class="mx-auto w-full max-w-[1280px]">
+    <h1 class="type-page-title text-primary">Theme guide</h1>
+
     <!-- CORE COLORS -->
-    <section>
+    <section class="mt-10">
       <h2 class="type-section-label text-muted">Core colors</h2>
       <div class="mt-6 grid grid-cols-4 gap-x-5 gap-y-6 md:grid-cols-8">
         @for (c of coreColors; track c.name) {
           <div>
             <div
-              class="h-[68px] w-full rounded-card border border-default {{ c.swatchClass }}"
+              class="h-[68px] w-full rounded-card border border-default"
+              [class]="c.swatchClass"
             ></div>
             <p class="mt-3 type-body text-primary">{{ c.name }}</p>
-            <p class="type-meta text-muted">{{ c.value }}</p>
+            <p class="type-meta text-muted">{{ resolvedValues()[c.token] }}</p>
           </div>
         }
       </div>
@@ -23,9 +26,12 @@
         <div class="mt-6 grid grid-cols-3 gap-x-5 gap-y-6 sm:grid-cols-5">
           @for (c of semanticColors; track c.name) {
             <div>
-              <div class="h-20 w-full rounded-card border border-default {{ c.swatchClass }}"></div>
+              <div
+                class="h-20 w-full rounded-card border border-default"
+                [class]="c.swatchClass"
+              ></div>
               <p class="mt-3 type-body text-primary">{{ c.name }}</p>
-              <p class="type-meta text-muted">{{ c.value }}</p>
+              <p class="type-meta text-muted">{{ resolvedValues()[c.token] }}</p>
             </div>
           }
         </div>
@@ -35,7 +41,7 @@
         <h2 class="type-section-label text-muted">Type</h2>
         <div class="mt-6 flex flex-col gap-4">
           @for (t of typeSamples; track t.text) {
-            <p class="{{ t.typeClass }} {{ t.toneClass }}">{{ t.text }}</p>
+            <p [class]="[t.typeClass, t.toneClass]">{{ t.text }}</p>
           }
         </div>
       </section>
