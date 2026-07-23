@@ -5,5 +5,18 @@
 <section>
   <p>Quick add a task...</p>
   <button (click)="addTask()">Add</button>
-  <app-tasks-create></app-tasks-create>
 </section>
+
+@if (showCreate()) {
+  <div class="scrim" (click)="closeCreate()"></div>
+  <div
+    class="sheet"
+    role="dialog"
+    aria-modal="true"
+    aria-label="New task"
+    (document:keydown.escape)="closeCreate()"
+  >
+    <span class="sheet-handle" aria-hidden="true"></span>
+    <app-tasks-create (close)="closeCreate()"></app-tasks-create>
+  </div>
+}

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { TasksService } from '../tasks.service';
 
 @Component({
@@ -10,7 +10,13 @@ import { TasksService } from '../tasks.service';
 export class TasksCreate {
   tasksService = inject(TasksService);
 
-  createTask() {}
+  readonly close = output<void>();
 
-  cancel() {}
+  createTask() {
+    this.close.emit();
+  }
+
+  cancel() {
+    this.close.emit();
+  }
 }
