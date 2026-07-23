@@ -1,0 +1,17 @@
+/* =============================================================================
+   utilities.css  —  SMALL CUSTOM UTILITIES
+   ============================================================================= */
+
+/* Neutral divider color, matching the requested `border-default` API.
+   (Tailwind also generates `border-border` from --color-border, but that reads
+   badly.) Use with a width utility: `class="border border-default"`. */
+@utility border-default {
+  border-color: var(--border);
+}
+
+/* Accessible focus ring keyed to the accent. Pair with the focus-visible
+   variant: `class="focus-visible:focus-ring"`. */
+@utility focus-ring {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

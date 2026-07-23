@@ -1,0 +1,82 @@
+/* =============================================================================
+   typography.css  —  FONT + TEXT-STYLE TOKENS
+   ============================================================================= */
+
+@theme {
+  /* Families.
+     Display = Space Grotesk (titles only; must be loaded — see index.html step).
+     Sans    = system UI stack for everything else (zero network cost). */
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+
+  /* Text scale. Each token carries size + line-height + weight (+ tracking).
+     Half-pixel sizes from the spec are converted to rem (16px base). */
+  --text-page-title: 1.625rem; /* 26 / 700 */
+  --text-page-title--line-height: 1.15;
+  --text-page-title--font-weight: 700;
+
+  --text-modal-title: 1.1875rem; /* 19 / 700 */
+  --text-modal-title--line-height: 1.2;
+  --text-modal-title--font-weight: 700;
+
+  --text-task-title: 0.9375rem; /* 15 / 500 */
+  --text-task-title--line-height: 1.35;
+  --text-task-title--font-weight: 500;
+
+  --text-body: 0.84375rem; /* 13.5 / 400 */
+  --text-body--line-height: 1.5;
+  --text-body--font-weight: 400;
+
+  --text-section-label: 0.75rem; /* 12 / 600 / +tracking */
+  --text-section-label--line-height: 1;
+  --text-section-label--font-weight: 600;
+  --text-section-label--letter-spacing: 0.08em; /* PROPOSAL: reading of "+1" */
+
+  --text-meta: 0.71875rem; /* 11.5 / 400 */
+  --text-meta--line-height: 1.4;
+  --text-meta--font-weight: 400;
+}
+
+/* Named text styles — one class that also binds the font family (family can't
+   live inside a --text-* token). Use these for the design's named styles, or
+   compose manually, e.g. `font-display text-page-title`. */
+@utility type-page-title {
+  font-family: var(--font-display);
+  font-size: var(--text-page-title);
+  line-height: 1.15;
+  font-weight: 700;
+}
+@utility type-modal-title {
+  font-family: var(--font-display);
+  font-size: var(--text-modal-title);
+  line-height: 1.2;
+  font-weight: 700;
+}
+@utility type-task-title {
+  font-family: var(--font-sans);
+  font-size: var(--text-task-title);
+  line-height: 1.35;
+  font-weight: 500;
+}
+@utility type-body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.5;
+  font-weight: 400;
+}
+@utility type-section-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-section-label);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+@utility type-meta {
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  line-height: 1.4;
+  font-weight: 400;
+}

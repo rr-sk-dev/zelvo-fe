@@ -1,0 +1,130 @@
+/* =============================================================================
+   theme.css  —  SEMANTIC TOKENS + TAILWIND THEME MAPPING
+   -----------------------------------------------------------------------------
+   The layer components talk to. Every token has an intent-based name
+   (background, card, priority-high...) that points at a raw primitive.
+   Swapping a theme = re-pointing these names. Markup never changes.
+   ============================================================================= */
+
+/* 1) Semantic tokens  (default = dark theme) -------------------------------- */
+:root {
+  /* Surfaces */
+  --background: var(--surface-bg);
+  --card: var(--surface-card);
+  --field: var(--surface-field);
+  --border: var(--surface-border);
+
+  /* Accent (== medium priority amber by design) */
+  --accent: var(--raw-amber);
+
+  /* Text */
+  --text-primary: var(--ink-primary);
+  --text-secondary: var(--ink-secondary);
+  --text-muted: var(--ink-muted);
+
+  /* Priority */
+  --priority-high: var(--raw-red);
+  --priority-medium: var(--raw-amber);
+  --priority-low: var(--raw-green);
+
+  /* Status */
+  --status-todo: var(--ink-secondary); /* PROPOSAL: no value in the spec */
+  --status-in-progress: var(--raw-blue);
+  --status-done: var(--surface-done);
+
+  /* Overlays */
+  --overlay: oklch(0 0 0 / 0.6); /* PROPOSAL: modal scrim opacity  */
+}
+
+/* 2) Color utilities -------------------------------------------------------- */
+/* `@theme inline` inlines these into the generated utilities, so they resolve
+   the semantic var *live*. A theme override (section 5) recolors every utility
+   with no rebuild and without touching markup. */
+@theme inline {
+  --color-background: var(--background);
+  --color-card: var(--card);
+  --color-field: var(--field);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-muted: var(--text-muted);
+
+  --color-priority-high: var(--priority-high);
+  --color-priority-medium: var(--priority-medium);
+  --color-priority-low: var(--priority-low);
+
+  --color-status-todo: var(--status-todo);
+  --color-status-in-progress: var(--status-in-progress);
+  --color-status-done: var(--status-done);
+
+  --color-overlay: var(--overlay);
+}
+
+/* 3) Non-color tokens  (static across themes) ------------------------------- */
+@theme {
+  /* Radius — PROPOSAL: inferred from the mockup's rounded corners */
+  --radius-field: 0.625rem; /* 10px — inputs, buttons, rows */
+  --radius-card: 0.875rem; /* 14px — cards, panels         */
+  --radius-modal: 1.25rem; /* 20px — dialogs               */
+  --radius-pill: 9999px; /* chips, badges, avatars       */
+
+  /* Shadows — PROPOSAL: subtle, for floating layers ONLY.
+     Flat surfaces get their depth from the surface ramp, not shadow. */
+  --shadow-popover: 0 8px 24px -8px oklch(0 0 0 / 0.55);
+  --shadow-modal: 0 24px 64px -16px oklch(0 0 0 / 0.65);
+
+  /* Motion — PROPOSAL: snappy, non-bouncy defaults */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --duration-slow: 260ms;
+
+  /* Make the bare `transition` utility use our base rhythm */
+  --default-transition-duration: var(--duration-base);
+  --default-transition-timing-function: var(--ease-standard);
+}
+
+/* 4) Base layer ------------------------------------------------------------- */
+@layer base {
+  :root {
+    color-scheme: dark; /* native controls + scrollbars go dark */
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Honor reduced-motion preferences globally */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* 5) Future theming hook ---------------------------------------------------- */
+/* A light theme was NOT part of the supplied design. When you have one, fill in
+   the overrides and toggle <html data-theme="light">. Only these names change —
+   no component edits. Values below are placeholders, not a real design.
+[data-theme="light"] {
+  --background:     #FFFFFF;
+  --card:           #F6F5FA;
+  --field:          #EEECF4;
+  --border:         #E0DEE9;
+  --text-primary:   #15131F;
+  --text-secondary: #4A4660;
+  --text-muted:     #7A7690;
+}
+*/

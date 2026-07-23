@@ -5,8 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "watch": "ng build --watch --configuration development"
   },
   "private": true,
   "packageManager": "npm@11.13.0",
@@ -17,7 +16,7 @@
     "@angular/forms": "^22.0.0",
     "@angular/platform-browser": "^22.0.0",
     "@angular/router": "^22.0.0",
-    "@tailwindcss/vite": "4.3.3",
+    "postcss": "^8.5.21",
     "rxjs": "~7.8.0",
     "tailwindcss": "4.3.3",
     "tailwindcss-animate": "1.0.7",
@@ -27,6 +26,7 @@
     "@angular/build": "^22.0.7",
     "@angular/cli": "^22.0.7",
     "@angular/compiler-cli": "^22.0.0",
+    "@tailwindcss/postcss": "^4.3.3",
     "prettier": "^3.8.1",
     "typescript": "~6.0.2"
   }

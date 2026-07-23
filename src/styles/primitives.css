@@ -1,0 +1,46 @@
+/* =============================================================================
+   primitives.css  —  RAW DESIGN PRIMITIVES  (dark theme source values)
+   -----------------------------------------------------------------------------
+   Lowest level of the system. Do NOT reference these variables in components or
+   markup. Components consume the SEMANTIC tokens in theme.css, which point back
+   here. Change a raw value once and every semantic token that references it
+   re-flows automatically.
+   ============================================================================= */
+
+:root {
+  /* ---------------------------------------------------------------------------
+     Accent / priority / status color system.
+     The design fixes lightness (L) and chroma (C) and varies only HUE (H).
+     Exposing L, C and H as three knobs means the vividness of EVERY accent
+     color can be returned from a single place.
+     --------------------------------------------------------------------------- */
+  --accent-l: 0.72; /* shared lightness for all chroma colors          */
+  --accent-c: 0.16; /* shared chroma    for all chroma colors          */
+
+  --hue-red: 25; /* high priority                                   */
+  --hue-amber: 75; /* accent + medium priority                        */
+  --hue-green: 160; /* low priority                                    */
+  --hue-blue: 250; /* in progress                                     */
+
+  --raw-red: oklch(var(--accent-l) var(--accent-c) var(--hue-red));
+  --raw-amber: oklch(var(--accent-l) var(--accent-c) var(--hue-amber));
+  --raw-green: oklch(var(--accent-l) var(--accent-c) var(--hue-green));
+  --raw-blue: oklch(var(--accent-l) var(--accent-c) var(--hue-blue));
+
+  /* ---------------------------------------------------------------------------
+     Surface ramp. Elevation here is expressed by lightness, not shadow:
+     bg (lowest) -> card -> field/row -> border -> done.
+     --------------------------------------------------------------------------- */
+  --surface-bg: #0d0b16;
+  --surface-card: #15131f;
+  --surface-field: #1c1830;
+  --surface-border: #251f38;
+  --surface-done: #3d3855;
+
+  /* ---------------------------------------------------------------------------
+     Ink ramp — text emphasis.
+     --------------------------------------------------------------------------- */
+  --ink-primary: #f0eef8;
+  --ink-secondary: #a49ec2;
+  --ink-muted: #6e6a85;
+}

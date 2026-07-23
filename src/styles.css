@@ -1,1 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@import './styles/primitives.css';
+@import './styles/theme.css';
+@import './styles/typography.css';
+@import './styles/utilities.css';
