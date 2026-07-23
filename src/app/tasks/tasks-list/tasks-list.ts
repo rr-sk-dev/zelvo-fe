@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-tasks-list',
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './tasks-list.html',
   styleUrl: './tasks-list.css',
 })
-export class TasksList {}
+export class TasksList {
+  tasksService = inject(TasksService);
+}
