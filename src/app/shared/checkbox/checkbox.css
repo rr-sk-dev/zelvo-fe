@@ -2,28 +2,27 @@
   display: inline-flex;
 }
 
-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
+input {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
   flex-shrink: 0;
-  padding: 0;
+  box-sizing: border-box;
   border: 2px solid var(--checkbox-color);
   border-radius: var(--radius-pill);
   background-color: transparent;
-  color: var(--background);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 64%;
   cursor: pointer;
   transition:
     background-color var(--duration-fast) var(--ease-standard),
     border-color var(--duration-fast) var(--ease-standard);
 }
 
-button[aria-checked='true'] {
+input:checked {
   background-color: var(--checkbox-color);
-}
-
-svg {
-  width: 62%;
-  height: 62%;
+  /* Checkmark stroke is baked to --background (#0d0b16): CSS custom properties
+     can't be interpolated into a background-image data URI. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d0b16' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E");
 }

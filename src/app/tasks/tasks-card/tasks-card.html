@@ -1,4 +1,4 @@
-<app-checkbox [checked]="done()" [color]="checkboxColor()" />
+<app-checkbox [checked]="done()" [color]="checkboxColor()" (checkedChange)="onToggleDone($event)" />
 
 <p
   class="min-w-0 flex-1 type-task-title text-primary"

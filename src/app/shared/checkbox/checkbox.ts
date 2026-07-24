@@ -10,7 +10,7 @@ export class Checkbox {
   readonly color = input('var(--text-secondary)');
   readonly size = input(28);
 
-  protected toggle(): void {
-    this.checked.update((value) => !value);
+  protected onChange(event: Event): void {
+    this.checked.set((event.target as HTMLInputElement).checked);
   }
 }

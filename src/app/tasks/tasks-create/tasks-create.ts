@@ -1,5 +1,5 @@
 import { Component, inject, output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SegmentedSelect, SegmentOption } from '../../../shared/segmented-select/segmented-select';
 import { TasksService } from '../tasks.service';
 
@@ -25,7 +25,7 @@ export class TasksCreate {
   protected readonly priorityOptions = PRIORITY_OPTIONS;
 
   taskForm = new FormGroup({
-    title: new FormControl(''),
+    title: new FormControl('', { nonNullable: true, validators: Validators.required }),
     description: new FormControl(''),
     priority: new FormControl<Priority>('medium', { nonNullable: true }),
   });
