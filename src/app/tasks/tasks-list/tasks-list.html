@@ -2,8 +2,11 @@
   <div class="mt-8 flex flex-col gap-8">
     @for (group of groups(); track group.status) {
       <section class="flex flex-col gap-3">
-        <h2 class="flex items-center gap-2 px-1 type-section-label text-secondary">
-          <app-dot [color]="group.color" />
+        <h2
+          [attr.data-status]="group.status"
+          class="flex items-center gap-2 px-1 type-section-label text-secondary"
+        >
+          <app-dot />
           <span>{{ group.label }}</span>
           <span class="text-muted">· {{ group.tasks.length }}</span>
         </h2>

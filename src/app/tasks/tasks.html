@@ -4,33 +4,35 @@
     <app-tasks-counter></app-tasks-counter>
   </header>
 
-  <section
-    class="mt-8 flex items-center gap-4 rounded-card border border-default bg-card px-4 py-3"
+  <button
+    type="button"
+    (click)="addTask()"
+    class="mt-8 flex w-full items-center gap-4 rounded-card border border-default bg-card px-4 py-3 text-left focus-visible:focus-ring"
   >
-    <app-dashed-circle [size]="40" aria-hidden="true"></app-dashed-circle>
-    <p class="flex-1 type-body text-secondary">Quick add a task...</p>
-    <button
-      type="button"
-      (click)="addTask()"
-      class="rounded-field bg-accent px-5 py-3 type-task-title font-semibold text-background focus-visible:focus-ring"
+    <app-dashed-circle [size]="40" aria-hidden="true" />
+    <span class="flex-1 type-body text-secondary">Quick add a task...</span>
+    <span
+      class="rounded-field bg-accent px-5 py-3 type-task-title font-semibold text-background"
+      aria-hidden="true"
     >
       Add
-    </button>
-  </section>
+    </span>
+  </button>
 
   <app-tasks-list></app-tasks-list>
 </div>
 
-@if (showCreate()) {
-  <div class="scrim" (click)="closeCreate()"></div>
-  <div
-    class="sheet"
-    role="dialog"
-    aria-modal="true"
-    aria-label="New task"
-    (document:keydown.escape)="closeCreate()"
-  >
-    <span class="sheet-handle" aria-hidden="true"></span>
-    <app-tasks-create (close)="closeCreate()"></app-tasks-create>
-  </div>
-}
+<dialog
+  #createDialog
+  class="sheet"
+  aria-label="New task"
+  (close)="closeCreate()"
+  (click)="onBackdropClick($event)"
+>
+  @if (showCreate()) {
+    <div class="sheet-panel">
+      <span class="sheet-handle" aria-hidden="true"></span>
+      <app-tasks-create (close)="closeCreate()" />
+    </div>
+  }
+</dialog>

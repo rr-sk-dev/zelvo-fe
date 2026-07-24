@@ -1,0 +1,11 @@
+h2 {
+  --dot-color: var(--text-muted);
+}
+
+h2[data-status='todo'] {
+  --dot-color: var(--accent);
+}
+
+h2[data-status='in-progress'] {
+  --dot-color: var(--status-in-progress);
+}

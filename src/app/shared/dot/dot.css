@@ -2,4 +2,5 @@
   display: inline-block;
   flex-shrink: 0;
   border-radius: var(--radius-pill);
+  background-color: var(--dot-color, var(--text-muted));
 }

@@ -1,22 +1,25 @@
 <p class="type-section-label text-muted">New Task</p>
 
-<form [formGroup]="taskForm" (ngSubmit)="createTask()" class="mt-5 flex flex-col gap-5">
+<form (submit)="createTask(); $event.preventDefault()" class="mt-5 flex flex-col gap-5">
   <div class="flex flex-col gap-2">
     <label for="title" class="type-body text-secondary">Title</label>
     <input
       id="title"
       type="text"
-      formControlName="title"
+      [formField]="taskForm.title"
       placeholder="What needs doing?"
       class="rounded-field border border-default bg-field px-4 py-3 type-task-title text-primary placeholder:text-muted focus-visible:focus-ring"
     />
+    @if (taskForm.title().touched() && taskForm.title().errors().length) {
+      <p class="type-body text-priority-high">{{ taskForm.title().errors()[0].message }}</p>
+    }
   </div>
 
   <div class="flex flex-col gap-2">
     <label for="description" class="type-body text-secondary">Description</label>
     <textarea
       id="description"
-      formControlName="description"
+      [formField]="taskForm.description"
       rows="4"
       placeholder="Optional"
       class="resize-none rounded-field border border-default bg-field px-4 py-3 type-task-title text-primary placeholder:text-muted focus-visible:focus-ring"
@@ -25,14 +28,14 @@
 
   <app-segmented-select
     legend="Priority"
-    formControlName="priority"
     [options]="priorityOptions"
-  ></app-segmented-select>
+    [formField]="taskForm.priority"
+  />
 
   <div class="mt-1 flex gap-3">
     <button
       type="submit"
-      [disabled]="!taskForm.valid"
+      [disabled]="taskForm().invalid()"
       class="flex-1 rounded-field bg-accent px-5 py-4 type-task-title font-semibold text-background focus-visible:focus-ring disabled:opacity-50"
     >
       Create

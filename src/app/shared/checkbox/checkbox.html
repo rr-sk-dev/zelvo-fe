@@ -2,7 +2,7 @@
   type="checkbox"
   class="focus-visible:focus-ring"
   [checked]="checked()"
-  [style.--checkbox-color]="color()"
+  [attr.aria-labelledby]="ariaLabelledby() ?? null"
   [style.width.px]="size()"
   [style.height.px]="size()"
   (change)="onChange($event)"

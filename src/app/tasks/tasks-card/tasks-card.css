@@ -6,9 +6,25 @@
   background-color: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
+
+  --checkbox-color: var(--text-secondary);
+  --dot-color: var(--priority-medium);
 }
 
-:host(.is-active) {
+:host([data-status='in-progress']),
+:host([data-status='done']) {
+  --checkbox-color: var(--accent);
+}
+
+:host([data-priority='high']) {
+  --dot-color: var(--priority-high);
+}
+
+:host([data-priority='low']) {
+  --dot-color: var(--priority-low);
+}
+
+:host([data-status='in-progress']) {
   border-color: var(--accent);
   box-shadow: 0 0 24px -8px color-mix(in oklch, var(--accent) 45%, transparent);
 }

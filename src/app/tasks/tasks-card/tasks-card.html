@@ -1,6 +1,11 @@
-<app-checkbox [checked]="done()" [color]="checkboxColor()" (checkedChange)="onToggleDone($event)" />
+<app-checkbox
+  [checked]="done()"
+  [ariaLabelledby]="titleId()"
+  (checkedChange)="onToggleDone($event)"
+/>
 
 <p
+  [id]="titleId()"
   class="min-w-0 flex-1 type-task-title text-primary"
   [class.line-through]="done()"
   [class.text-muted]="done()"
@@ -9,8 +14,8 @@
 </p>
 
 <div class="flex flex-shrink-0 items-center gap-2">
-  <app-dot [color]="priorityColor()" />
+  <app-dot />
   @if (todo().dueDate) {
-    <span class="type-meta text-muted">{{ todo().dueDate | date: 'MMM d' }}</span>
+    <span class="type-meta text-muted">{{ todo().dueDate | date: 'MMM d' : 'UTC' }}</span>
   }
 </div>

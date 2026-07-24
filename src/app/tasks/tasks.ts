@@ -1,33 +1,8 @@
-import { Component, signal } from '@angular/core';
-import { DashedCircle } from '../../shared/dashed-circle/dashed-circle';
+import { Component, ElementRef, effect, signal, viewChild } from '@angular/core';
+import { DashedCircle } from '../shared/dashed-circle/dashed-circle';
 import { TasksCounter } from './tasks-counter/tasks-counter';
 import { TasksCreate } from './tasks-create/tasks-create';
 import { TasksList } from './tasks-list/tasks-list';
-
-type TodoStatus = 'todo' | 'in-progress' | 'done';
-
-type TodoPriority = 'low' | 'medium' | 'high';
-
-type TodoNote = {
-  id: string;
-  text: string;
-  createdAt: string;
-};
-
-export type Todo = {
-  id: string;
-  title: string;
-  description?: string;
-  priority: TodoPriority;
-  status: TodoStatus;
-  dueDate?: string;
-  notes: TodoNote[];
-  createdAt: string;
-  updatedAt: string;
-  completedAt?: string;
-  previousStatus?: TodoStatus;
-  deletedAt?: string;
-};
 
 @Component({
   selector: 'app-tasks',
@@ -37,12 +12,34 @@ export type Todo = {
 })
 export class Tasks {
   protected readonly showCreate = signal(false);
+  private readonly createDialog = viewChild<ElementRef<HTMLDialogElement>>('createDialog');
 
-  addTask() {
+  constructor() {
+    effect(() => {
+      const dialog = this.createDialog()?.nativeElement;
+      if (!dialog) {
+        return;
+      }
+
+      if (this.showCreate() && !dialog.open) {
+        dialog.showModal();
+      } else if (!this.showCreate() && dialog.open) {
+        dialog.close();
+      }
+    });
+  }
+
+  addTask(): void {
     this.showCreate.set(true);
   }
 
-  closeCreate() {
+  closeCreate(): void {
     this.showCreate.set(false);
+  }
+
+  onBackdropClick(event: MouseEvent): void {
+    if (event.target === this.createDialog()?.nativeElement) {
+      this.closeCreate();
+    }
   }
 }

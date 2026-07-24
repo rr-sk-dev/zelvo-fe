@@ -7,10 +7,8 @@ import { Component, input } from '@angular/core';
   host: {
     '[style.width.px]': 'size()',
     '[style.height.px]': 'size()',
-    '[style.background-color]': 'color()',
   },
 })
 export class Dot {
-  readonly color = input('var(--text-muted)');
   readonly size = input(8);
 }

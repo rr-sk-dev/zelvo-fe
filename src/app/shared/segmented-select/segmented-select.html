@@ -12,7 +12,7 @@
           [name]="groupName"
           [checked]="value() === option.value"
           (change)="select(option.value)"
-          (blur)="onTouched()"
+          (blur)="touch.emit()"
         />
         {{ option.label }}
       </label>
