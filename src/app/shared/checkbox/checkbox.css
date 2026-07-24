@@ -1,0 +1,29 @@
+:host {
+  display: inline-flex;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: 0;
+  border: 2px solid var(--checkbox-color);
+  border-radius: var(--radius-pill);
+  background-color: transparent;
+  color: var(--background);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+button[aria-checked='true'] {
+  background-color: var(--checkbox-color);
+}
+
+svg {
+  width: 62%;
+  height: 62%;
+}

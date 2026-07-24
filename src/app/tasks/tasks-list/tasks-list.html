@@ -1,7 +1,19 @@
-@if (tasksService.tasks().length) {
-  @for (task of tasksService.tasks(); track $index) {
-    #{{ $index }}:{{ task.title }}
-  }
+@if (hasTasks()) {
+  <div class="mt-8 flex flex-col gap-8">
+    @for (group of groups(); track group.status) {
+      <section class="flex flex-col gap-3">
+        <h2 class="flex items-center gap-2 px-1 type-section-label text-secondary">
+          <app-dot [color]="group.color" />
+          <span>{{ group.label }}</span>
+          <span class="text-muted">· {{ group.tasks.length }}</span>
+        </h2>
+
+        @for (task of group.tasks; track task.id) {
+          <app-tasks-card [todo]="task" />
+        }
+      </section>
+    }
+  </div>
 } @else {
   <section class="flex min-h-[55dvh] flex-col items-center justify-center text-center">
     <app-dashed-circle [size]="80">

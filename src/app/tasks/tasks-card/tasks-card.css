@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+}
+
+:host(.is-active) {
+  border-color: var(--accent);
+  box-shadow: 0 0 24px -8px color-mix(in oklch, var(--accent) 45%, transparent);
+}
